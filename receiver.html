@@ -25,7 +25,7 @@
     }
 
     .full-height {
-      height: calc(100% - 88px)
+      height: auto;
     }
   </style>
 
@@ -38,8 +38,8 @@
   </md-toolbar>
 
   <md-tabs class="full-height" layout="column" md-selected="selectedTab">
-    <md-tab ng-repeat="url in images">
-      <img style="height:700px" id="imageHolder" ng-src="{{url}}"></img>
+    <md-tab label="THING" class="full-height" ng-repeat="url in images">
+      <img id="imageHolder" ng-src="{{url}}"></img>
     </md-tab>
   </md-tabs>
 
@@ -101,7 +101,13 @@
     angular.module("aoHack", ["ngAria", "ngAnimate", "ngMaterial", "ng-chrome-cast-channels"])
       .controller("hackController", ["$scope", "ChromeCastReceiverChannel",
         function ($scope, ChromeCastReceiverChannel) {
-          $scope.images = [];
+          $scope.images = [
+            "http://media.ao.com/en-GB/Productimages/Images/rvMedium/df612aew_wh_smeg_dishwasher_01_m_p.jpg",
+            "http://media.ao.com/en-GB/Productimages/Images/rvMedium/df612aew_wh_smeg_dishwasher_02_m_p.jpg",
+            "http://media.ao.com/en-GB/Productimages/Images/rvMedium/df612aew_wh_smeg_dishwasher_03_m_p.jpg",
+            "http://media.ao.com/en-GB/Productimages/Images/rvMedium/df612aew_wh_smeg_dishwasher_04_m_p.jpg",
+            "http://media.ao.com/en-GB/Productimages/Images/rvMedium/df612aew_wh_smeg_dishwasher_05_m_p.jpg"
+          ];
 
           $scope.callback = function (data) {
             var message = JSON.parse(data);
