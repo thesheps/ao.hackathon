@@ -17,30 +17,33 @@
     body {
       overflow: hidden;
       background-color: #7fba23;
-      font-weight: bold;
-      font-family: Verdana, Geneva, sans-serif;
-      font-size: 20px;
       color: white;
+    }
+
+    .no-margin {
+      margin-top: 0px;
     }
   </style>
 
   <title>AO Hack 2017</title>
 </head>
 
-<body ng-controller="hackController">
-  <div layout="row">
-    <div class="site-header">
-      <h1>
-          <span class="site-header-text">Hello Hack 2017</span>
-      </h1>
-    </div>
-  </div>
+<body ng-app="aoHack" ng-controller="hackController">
+  <md-toolbar>
+    <h2>AO Hack 2017</h1>
+  </md-toolbar>
 
-  <img id="imageHolder"></img>
-  <div id="message">Greetings.</div>
+  <img ng-src="{{imageUrl}}"></img>
 
   <script type="text/javascript" src="http://www.gstatic.com/cast/sdk/libs/receiver/2.0.0/cast_receiver.js"></script>
   <script type="text/javascript">
+    angular.module("aoHack", ["ngAria", "ngAnimate", "ngMaterial"])
+      .controller("hackController", ["$scope",
+        function ($scope) {
+          $scope.imageUrl = "http://media.ao.com/en-GB/Productimages/Images/rvLarge/fridgemaster_mbul60133_wh_01_l.jpg";
+        }
+      ]);
+
     window.onload = function () {
       cast.receiver.logger.setLevelValue(0);
       window.castReceiverManager = cast.receiver.CastReceiverManager.getInstance();
@@ -89,10 +92,8 @@
     // utility function to display the text message in the input field
     function setImage(text) {
       document.getElementById("imageHolder").src = text;
-      document.getElementById("message").innerHTML = text;
       window.castReceiverManager.setApplicationState(text);
     };
   </script>
 </body>
-
 </html>
