@@ -53,13 +53,13 @@
     </div>
   </div>
 
-  <div ng-show="!showSplash">
+  <div ng-show="!showSplash" class="fade-in-out">
     <md-tabs md-center-tabs md-no-ink-bar style="margin-top:20px" class="full-height" layout="column" md-selected="selectedTab"
       md-align-tabs="bottom">
       <md-tab ng-repeat="url in images">
         <md-tab-body>
           <div layout-align="center center" layout="row">
-            <img id="imageHolder" ng-src="{{url}}"></img>
+            <img style="height:500px" id="imageHolder" ng-src="{{url}}"></img>
           </div>
         </md-tab-body>
 
@@ -126,7 +126,9 @@
     angular.module("aoHack", ["ngAria", "ngAnimate", "ngMaterial", "ng-chrome-cast-channels"])
       .controller("hackController", ["$scope", "ChromeCastReceiverChannel",
         function ($scope, ChromeCastReceiverChannel) {
-          $scope.images = [];
+          $scope.images = [
+          ];
+
           $scope.showSplash = true;
           $scope.callback = function (data) {
             var message = JSON.parse(data);
