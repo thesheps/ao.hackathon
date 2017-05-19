@@ -12,7 +12,7 @@
   <link href="https://cdnjs.cloudflare.com/ajax/libs/angular-material/1.1.4/angular-material.min.css" rel="stylesheet" />
   <link href="https://cdnjs.cloudflare.com/ajax/libs/angular-material-data-table/0.10.10/md-data-table.min.css" rel="stylesheet"
   />
-
+  <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/angular-ui-bootstrap/0.10.0/ui-bootstrap-tpls.min.js"></script>
   <style type="text/css">
     body {
       overflow: hidden;
@@ -25,7 +25,7 @@
     }
 
     .full-height {
-      height: auto;
+      height: 500px;
     }
   </style>
 
@@ -37,13 +37,22 @@
     <h2>AO Hack 2017</h1>
   </md-toolbar>
 
-  <md-tabs class="full-height" layout="column" md-selected="selectedTab">
-    <md-tab label="THING" class="full-height" ng-repeat="url in images">
-      <img id="imageHolder" ng-src="{{url}}"></img>
-    </md-tab>
-  </md-tabs>
+  <div>
+    <md-tabs md-center-tabs md-no-ink-bar style="margin-top:20px" class="full-height" layout="column" md-selected="selectedTab"
+      md-align-tabs="bottom">
+      <md-tab ng-repeat="url in images">
+        <md-tab-body>
+          <div layout-align="center center" layout="row">
+            <img height="100%" id="imageHolder" ng-src="{{url}}"></img>
+          </div>
+        </md-tab-body>
 
-  {{images}} {{selectedTab}}
+        <md-tab-label class="my-label">
+          .
+        </md-tab-label>
+      </md-tab>
+    </md-tabs>
+  </div>
 
   <script type="text/javascript" src="http://www.gstatic.com/cast/sdk/libs/receiver/2.0.0/cast_receiver.js"></script>
 
@@ -102,11 +111,6 @@
       .controller("hackController", ["$scope", "ChromeCastReceiverChannel",
         function ($scope, ChromeCastReceiverChannel) {
           $scope.images = [
-            "http://media.ao.com/en-GB/Productimages/Images/rvMedium/df612aew_wh_smeg_dishwasher_01_m_p.jpg",
-            "http://media.ao.com/en-GB/Productimages/Images/rvMedium/df612aew_wh_smeg_dishwasher_02_m_p.jpg",
-            "http://media.ao.com/en-GB/Productimages/Images/rvMedium/df612aew_wh_smeg_dishwasher_03_m_p.jpg",
-            "http://media.ao.com/en-GB/Productimages/Images/rvMedium/df612aew_wh_smeg_dishwasher_04_m_p.jpg",
-            "http://media.ao.com/en-GB/Productimages/Images/rvMedium/df612aew_wh_smeg_dishwasher_05_m_p.jpg"
           ];
 
           $scope.callback = function (data) {
