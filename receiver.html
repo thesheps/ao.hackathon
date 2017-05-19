@@ -103,7 +103,7 @@
             var message = JSON.parse(data);
 
             if(message.messageType === "urlList") {
-              $scope.images = data;
+              $scope.images = message.urlList;
               $scope.selectedTab = 0;
             } else {
               $scope.selectedTab = message.tabIndex;
