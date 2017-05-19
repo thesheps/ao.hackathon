@@ -1,93 +1,153 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.6.4/angular-aria.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/angular-material/1.1.4/angular-material.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.6.4/angular-animate.min.js"></script>
 
-    <link href="https://cdn.jsdelivr.net/fontawesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" />
-    <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700" rel="stylesheet">
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/angular-material/1.1.4/angular-material.min.css" rel="stylesheet" />
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/angular-material-data-table/0.10.10/md-data-table.min.css" rel="stylesheet" />
+<head>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.6.4/angular.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.6.4/angular-aria.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/angular-material/1.1.4/angular-material.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.6.4/angular-animate.min.js"></script>
 
-    <style type="text/css">
-	  body {
-	    overflow:hidden;
-	  }
-      div{
-	    height:720PX;
-	    width:1280PX;
-	    text-align:center;
-	    border:0px solid silver;
-	    display: table-cell;
-	    vertical-align:middle;
-	    color:#FFFFFF;
-	    background-color:#7fba23;
-	    font-weight:bold;
-	    font-family:Verdana, Geneva, sans-serif;
-	    font-size:40px;
-	}
-    </style>
+  <link href="https://cdn.jsdelivr.net/fontawesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700" rel="stylesheet">
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/angular-material/1.1.4/angular-material.min.css" rel="stylesheet" />
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/angular-material-data-table/0.10.10/md-data-table.min.css" rel="stylesheet"
+  />
 
-    <title>AO Hack 2017</title>
-  </head>
-  <body>
-	<DIV id="message">Hello Hack 2017!</DIV>
-    <script type="text/javascript" src="//www.gstatic.com/cast/sdk/libs/receiver/2.0.0/cast_receiver.js"></script>
-    <script type="text/javascript">
-      window.onload = function() {
-        cast.receiver.logger.setLevelValue(0);
-        window.castReceiverManager = cast.receiver.CastReceiverManager.getInstance();
-        console.log('Starting Receiver Manager');
-        
-        // handler for the 'ready' event
-        castReceiverManager.onReady = function(event) {
-          console.log('Received Ready event: ' + JSON.stringify(event.data));
-          window.castReceiverManager.setApplicationState("Application status is ready...");
-        };
-        
-        // handler for 'senderconnected' event
-        castReceiverManager.onSenderConnected = function(event) {
-          console.log('Received Sender Connected event: ' + event.data);
-          console.log(window.castReceiverManager.getSender(event.data).userAgent);
-        };
-        
-        // handler for 'senderdisconnected' event
-        castReceiverManager.onSenderDisconnected = function(event) {
-          console.log('Received Sender Disconnected event: ' + event.data);
-          if (window.castReceiverManager.getSenders().length == 0) {
-	        window.close();
-	      }
-        };
-        
-        // create a CastMessageBus to handle messages for a custom namespace
-        window.messageBus =
-          window.castReceiverManager.getCastMessageBus(
-              'urn:x-cast:ao-hack');
-        
-        // handler for the CastMessageBus message event
-        window.messageBus.onMessage = function(event) {
-          console.log('Message [' + event.senderId + ']: ' + event.data);
-          // display the message from the sender
-          displayText(event.data);
-          // inform all senders on the CastMessageBus of the incoming message event
-          // sender message listener will be invoked
-          window.messageBus.send(event.senderId, event.data);
+  <style type="text/css">
+    body {
+      overflow: hidden;
+    }
+
+    div {
+      height: 720PX;
+      width: 1280PX;
+      text-align: center;
+      border: 0px solid silver;
+      display: table-cell;
+      vertical-align: middle;
+      color: #FFFFFF;
+      background-color: #7fba23;
+      font-weight: bold;
+      font-family: Verdana, Geneva, sans-serif;
+      font-size: 40px;
+    }
+
+    @font-face {
+      font-family: "Ao Icons";
+      src: url("fonts/ao-icons.woff") format('woff');
+    }
+
+    @font-face {
+      font-family: "Ao Bold";
+      src: url("fonts/AoOz-Bold.woff") format('woff');
+    }
+
+    .site-header {
+      padding-top: 1px;
+      padding-left: 20px;
+      padding-bottom: 5px;
+      background: #85be2f;
+      color: white;
+      font-family: "Ao Bold";
+    }
+
+    .site-header a {
+      color: white;
+      text-decoration: none;
+    }
+
+    .site-header h1:before {
+      content: "s";
+      font-family: "Ao Icons";
+      font-size: 31px;
+      margin-right: 20px;
+    }
+
+    .site-header-text {
+      vertical-align: top !important;
+    }
+
+    .site-header-icon {
+      margin: 0 18px 0 0;
+    }
+  </style>
+
+  <title>AO Hack 2017</title>
+</head>
+
+<body ng-controller="hackController">
+  <div layout="row">
+    <div class="site-header">
+      <h1>
+        <a href="#">
+                <span class="site-header-text">AO Hack 2017</span>
+            </a>
+      </h1>
+    </div>
+  </div>
+
+  <img id="imageHolder"></img>
+
+  <script type="text/javascript" src="//www.gstatic.com/cast/sdk/libs/receiver/2.0.0/cast_receiver.js"></script>
+  <script type="text/javascript">
+    var app = angular.module("aoHack", ["ngAria", "ngAnimate", "ngMaterial"])
+      .controller("hackController", ["$scope",
+        function ($scope) {
+          console.log("pooface");
         }
-        
-        // initialize the CastReceiverManager with an application status message
-        window.castReceiverManager.start({statusText: "Application is starting"});
-        console.log('Receiver Manager started');
+      ]);
+
+    window.onload = function () {
+      cast.receiver.logger.setLevelValue(0);
+      window.castReceiverManager = cast.receiver.CastReceiverManager.getInstance();
+      console.log('Starting Receiver Manager');
+
+      // handler for the 'ready' event
+      castReceiverManager.onReady = function (event) {
+        console.log('Received Ready event: ' + JSON.stringify(event.data));
+        window.castReceiverManager.setApplicationState("Application status is ready...");
       };
 
-      // utility function to display the text message in the input field
-      function displayText(text) {
-        console.log(text);
-        document.getElementById("message").innerHTML=text;
-        window.castReceiverManager.setApplicationState(text);
+      // handler for 'senderconnected' event
+      castReceiverManager.onSenderConnected = function (event) {
+        console.log('Received Sender Connected event: ' + event.data);
+        console.log(window.castReceiverManager.getSender(event.data).userAgent);
       };
 
+      // handler for 'senderdisconnected' event
+      castReceiverManager.onSenderDisconnected = function (event) {
+        console.log('Received Sender Disconnected event: ' + event.data);
+        if (window.castReceiverManager.getSenders().length == 0) {
+          window.close();
+        }
+      };
 
-    </script>
-  </body>
+      // create a CastMessageBus to handle messages for a custom namespace
+      window.messageBus =
+        window.castReceiverManager.getCastMessageBus(
+          'urn:x-cast:ao-hack');
+
+      // handler for the CastMessageBus message event
+      window.messageBus.onMessage = function (event) {
+        console.log('Message [' + event.senderId + ']: ' + event.data);
+        // display the message from the sender
+        setImage(event.data);
+        // inform all senders on the CastMessageBus of the incoming message event
+        // sender message listener will be invoked
+        window.messageBus.send(event.senderId, event.data);
+      }
+
+      // initialize the CastReceiverManager with an application status message
+      window.castReceiverManager.start({ statusText: "Application is starting" });
+      console.log('Receiver Manager started');
+    };
+
+    // utility function to display the text message in the input field
+    function setImage(text) {
+      $("#imageHolder").attr("src", text);
+      window.castReceiverManager.setApplicationState(text);
+    };
+  </script>
+</body>
+
 </html>
