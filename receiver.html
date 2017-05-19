@@ -47,12 +47,12 @@
       <md-tab ng-repeat="url in images">
         <md-tab-body>
           <div layout-align="center center" layout="row">
-            <img height="100%" id="imageHolder" ng-src="{{url}}"></img>
+            <img id="imageHolder" ng-src="{{url}}"></img>
           </div>
         </md-tab-body>
 
         <md-tab-label class="my-label">
-          .
+          <i class="site-header-icon fa fa-circle"></i>
         </md-tab-label>
       </md-tab>
     </md-tabs>
@@ -115,9 +115,6 @@
       .controller("hackController", ["$scope", "ChromeCastReceiverChannel",
         function ($scope, ChromeCastReceiverChannel) {
           $scope.images = [
-            "http://media.ao.com/en-GB/Productimages/Images/rvMedium/df612aew_wh_smeg_dishwasher_03_m_p.jpg",
-            "http://media.ao.com/en-GB/Productimages/Images/rvMedium/df612aew_wh_smeg_dishwasher_04_m_p.jpg",
-            "http://media.ao.com/en-GB/Productimages/Images/rvMedium/df612aew_wh_smeg_dishwasher_05_m_p.jpg"
           ];
 
           $scope.callback = function (data) {
