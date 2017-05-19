@@ -28,8 +28,8 @@
       height: 500px;
     }
 
-    .ao-green{
-      background-color: #7fba23
+    .ao-green {
+      background-color: #7fBC3a;
     }
   </style>
 
@@ -37,12 +37,10 @@
 </head>
 
 <body ng-app="aoHack" ng-controller="hackController">
-  <md-toolbar class="ao-green">
-    <h2>AO Hack 2017 - Chromecast Catalogue Browser</h1>
-  </md-toolbar>
-
-  <div ng-show="showSplash" class="ao-green">
-    Splish Splash!
+  <div ng-show="showSplash" style="height:100%;padding-top:200px" class="ao-green">
+    <div style="margin:auto; width:50%; height:50%;">
+      <img layout-align="center center" src="http://www.emergencysystems.co.uk/wp-content/uploads/2014/09/ao_esl-e1423132959840.jpg">
+    </div>
   </div>
 
   <div ng-show="!showSplash">
@@ -118,13 +116,12 @@
     angular.module("aoHack", ["ngAria", "ngAnimate", "ngMaterial", "ng-chrome-cast-channels"])
       .controller("hackController", ["$scope", "ChromeCastReceiverChannel",
         function ($scope, ChromeCastReceiverChannel) {
-          $scope.images = [
-          ];
-
+          $scope.images = [];
+          $scope.showSplash = true;
           $scope.callback = function (data) {
             var message = JSON.parse(data);
 
-            if(message.messageType === "showSplash") {
+            if (message.messageType === "showSplash") {
               $scope.showSplash = true;
             } else if (message.messageType === "urlList") {
               $scope.showSplash = false;
@@ -132,7 +129,7 @@
               $scope.selectedTab = 0;
             } else {
               $scope.showSplash = false;
-                $scope.selectedTab = message.tabIndex;
+              $scope.selectedTab = message.tabIndex;
             }
 
             $scope.$apply();
