@@ -10,7 +10,8 @@
   <link href="https://cdn.jsdelivr.net/fontawesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" />
   <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700" rel="stylesheet">
   <link href="https://cdnjs.cloudflare.com/ajax/libs/angular-material/1.1.4/angular-material.min.css" rel="stylesheet" />
-  <link href="https://cdnjs.cloudflare.com/ajax/libs/angular-material-data-table/0.10.10/md-data-table.min.css" rel="stylesheet" />
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/angular-material-data-table/0.10.10/md-data-table.min.css" rel="stylesheet"
+  />
 
   <style type="text/css">
     body {
@@ -21,6 +22,10 @@
 
     .no-margin {
       margin-top: 0px;
+    }
+
+    .full-height {
+      height: calc(100% - 88px)
     }
   </style>
 
@@ -34,12 +39,11 @@
 
   <md-tabs class="full-height" layout="column" md-selected="selectedTab">
     <md-tab ng-repeat="url in images">
-      <img style="height:700px" id="imageHolder" ng-src="{{url}}"></img>      
+      <img style="height:700px" id="imageHolder" ng-src="{{url}}"></img>
     </md-tab>
   </md-tabs>
 
-  {{images}}
-  {{selectedTab}}
+  {{images}} {{selectedTab}}
 
   <script type="text/javascript" src="http://www.gstatic.com/cast/sdk/libs/receiver/2.0.0/cast_receiver.js"></script>
 
@@ -102,7 +106,7 @@
           $scope.callback = function (data) {
             var message = JSON.parse(data);
 
-            if(message.messageType === "urlList") {
+            if (message.messageType === "urlList") {
               $scope.images = message.urlList;
               $scope.selectedTab = 0;
             } else {
