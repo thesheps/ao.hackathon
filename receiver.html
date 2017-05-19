@@ -31,45 +31,6 @@
       font-family: Verdana, Geneva, sans-serif;
       font-size: 40px;
     }
-
-    @font-face {
-      font-family: "Ao Icons";
-      src: url("fonts/ao-icons.woff") format('woff');
-    }
-
-    @font-face {
-      font-family: "Ao Bold";
-      src: url("fonts/AoOz-Bold.woff") format('woff');
-    }
-
-    .site-header {
-      padding-top: 1px;
-      padding-left: 20px;
-      padding-bottom: 5px;
-      background: #85be2f;
-      color: white;
-      font-family: "Ao Bold";
-    }
-
-    .site-header a {
-      color: white;
-      text-decoration: none;
-    }
-
-    .site-header h1:before {
-      content: "s";
-      font-family: "Ao Icons";
-      font-size: 31px;
-      margin-right: 20px;
-    }
-
-    .site-header-text {
-      vertical-align: top !important;
-    }
-
-    .site-header-icon {
-      margin: 0 18px 0 0;
-    }
   </style>
 
   <title>AO Hack 2017</title>
@@ -79,24 +40,15 @@
   <div layout="row">
     <div class="site-header">
       <h1>
-        <a href="#">
-                <span class="site-header-text">AO Hack 2017</span>
-            </a>
+          <span class="site-header-text">Hello Hack 2017</span>
       </h1>
     </div>
   </div>
 
   <img id="imageHolder"></img>
 
-  <script type="text/javascript" src="//www.gstatic.com/cast/sdk/libs/receiver/2.0.0/cast_receiver.js"></script>
+  <script type="text/javascript" src="http://www.gstatic.com/cast/sdk/libs/receiver/2.0.0/cast_receiver.js"></script>
   <script type="text/javascript">
-    var app = angular.module("aoHack", ["ngAria", "ngAnimate", "ngMaterial"])
-      .controller("hackController", ["$scope",
-        function ($scope) {
-          console.log("pooface");
-        }
-      ]);
-
     window.onload = function () {
       cast.receiver.logger.setLevelValue(0);
       window.castReceiverManager = cast.receiver.CastReceiverManager.getInstance();
@@ -144,7 +96,7 @@
 
     // utility function to display the text message in the input field
     function setImage(text) {
-      $("#imageHolder").attr("src", text);
+      document["imageHolder"].src = text;
       window.castReceiverManager.setApplicationState(text);
     };
   </script>
