@@ -59,7 +59,7 @@
       <md-tab ng-repeat="url in images">
         <md-tab-body>
           <div layout-align="center center" layout="row">
-            <img style="height:500px" id="imageHolder" ng-src="{{url}}"></img>
+            <img style="height:700px" id="imageHolder" ng-src="{{url}}"></img>
           </div>
         </md-tab-body>
 
@@ -129,7 +129,7 @@
           $scope.images = [
           ];
 
-          $scope.showSplash = true;
+          $scope.showSplash = false;
           $scope.callback = function (data) {
             var message = JSON.parse(data);
 
