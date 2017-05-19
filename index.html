@@ -6,6 +6,15 @@
   </head>
 
   <body>
-    Hello World!
+  <div>Hello Hack 2017!!</div>
+
+    <video id="media" />
+
+	<script>
+	    window.mediaElement = document.getElementById('media');
+	    window.mediaManager = new cast.receiver.MediaManager(window.mediaElement);
+	    window.castReceiverManager = cast.receiver.CastReceiverManager.getInstance();
+	    window.castReceiverManager.start();
+ 	</script>
   </body>
 </html>
