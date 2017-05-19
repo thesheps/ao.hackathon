@@ -19,7 +19,7 @@
       background-color: #7fba23;
       font-weight: bold;
       font-family: Verdana, Geneva, sans-serif;
-      font-size: 40px;
+      font-size: 20px;
       color: white;
     }
   </style>
@@ -88,8 +88,8 @@
 
     // utility function to display the text message in the input field
     function setImage(text) {
-      document.getElementById("imageHolder").src="text";
-      document.getElementById("message").innerHTML=text;
+      document.getElementById("imageHolder").src = text;
+      document.getElementById("message").innerHTML = text;
       window.castReceiverManager.setApplicationState(text);
     };
   </script>
