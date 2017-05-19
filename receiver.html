@@ -41,7 +41,11 @@
     <h2>AO Hack 2017 - Chromecast Catalogue Browser</h1>
   </md-toolbar>
 
-  <div>
+  <div ng-show="showSplash" class="ao-green">
+    Splish Splash!
+  </div>
+
+  <div ng-show="!showSplash">
     <md-tabs md-center-tabs md-no-ink-bar style="margin-top:20px" class="full-height" layout="column" md-selected="selectedTab"
       md-align-tabs="bottom">
       <md-tab ng-repeat="url in images">
@@ -115,16 +119,23 @@
       .controller("hackController", ["$scope", "ChromeCastReceiverChannel",
         function ($scope, ChromeCastReceiverChannel) {
           $scope.images = [
+            "http://media.ao.com/en-GB/Productimages/Images/rvMedium/df612aew_wh_smeg_dishwasher_03_m_p.jpg",
+            "http://media.ao.com/en-GB/Productimages/Images/rvMedium/df612aew_wh_smeg_dishwasher_04_m_p.jpg",
+            "http://media.ao.com/en-GB/Productimages/Images/rvMedium/df612aew_wh_smeg_dishwasher_05_m_p.jpg"
           ];
 
           $scope.callback = function (data) {
             var message = JSON.parse(data);
 
-            if (message.messageType === "urlList") {
+            if(message.messageType === "showSplash") {
+              $scope.showSplash = true;
+            } else if (message.messageType === "urlList") {
+              $scope.showSplash = false;
               $scope.images = message.urlList;
               $scope.selectedTab = 0;
             } else {
-              $scope.selectedTab = message.tabIndex;
+              $scope.showSplash = false;
+                $scope.selectedTab = message.tabIndex;
             }
 
             $scope.$apply();
