@@ -31,13 +31,23 @@
     .ao-green {
       background-color: #7fBC3a;
     }
+
+    .fade-in-out {
+      transition: 1s linear all;
+      opacity: 1;
+    }
+
+    .fade-in-out.ng-hide {
+      transition: 1s linear all;
+      opacity: 0;
+    }
   </style>
 
   <title>AO Hack 2017 - Chromecast Catalogue Browser</title>
 </head>
 
 <body ng-app="aoHack" ng-controller="hackController">
-  <div ng-show="showSplash" style="height:100%;padding-top:200px" class="ao-green">
+  <div ng-show="showSplash" style="height:100%;padding-top:200px" class="ao-green fade-in-out">
     <div style="margin:auto; width:50%; height:50%;">
       <img layout-align="center center" src="http://www.emergencysystems.co.uk/wp-content/uploads/2014/09/ao_esl-e1423132959840.jpg">
     </div>
