@@ -10,8 +10,7 @@
   <link href="https://cdn.jsdelivr.net/fontawesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" />
   <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700" rel="stylesheet">
   <link href="https://cdnjs.cloudflare.com/ajax/libs/angular-material/1.1.4/angular-material.min.css" rel="stylesheet" />
-  <link href="https://cdnjs.cloudflare.com/ajax/libs/angular-material-data-table/0.10.10/md-data-table.min.css" rel="stylesheet"
-  />
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/angular-material-data-table/0.10.10/md-data-table.min.css" rel="stylesheet" />
 
   <style type="text/css">
     body {
@@ -33,13 +32,14 @@
     <h2>AO Hack 2017</h1>
   </md-toolbar>
 
-  <div layout="row" layout-align="center center">
-    <div layout="column">
-      <img style="height:700px" id="imageHolder" ng-src="{{imageUrl}}"></img>
-    </div>
-  </div>
+  <md-tabs class="full-height" layout="column" md-selected="selectedTab">
+    <md-tab ng-repeat="url in images">
+      <img style="height:700px" id="imageHolder" ng-src="{{url}}"></img>      
+    </md-tab>
+  </md-tabs>
 
   <script type="text/javascript" src="http://www.gstatic.com/cast/sdk/libs/receiver/2.0.0/cast_receiver.js"></script>
+
   <script type="text/javascript">
     angular.module('ng-chrome-cast-channels', [])
       .service('ChromeCastReceiverChannel', function () {
@@ -94,10 +94,18 @@
     angular.module("aoHack", ["ngAria", "ngAnimate", "ngMaterial", "ng-chrome-cast-channels"])
       .controller("hackController", ["$scope", "ChromeCastReceiverChannel",
         function ($scope, ChromeCastReceiverChannel) {
-          $scope.imageUrl = "";
+          $scope.images = [];
 
           $scope.callback = function (data) {
-            $scope.imageUrl = data;
+            var message = JSON.parse(data);
+
+            if(message.messageType === "urlList") {
+              $scope.images = data;
+              $scope.selectedTab = 0;
+            } else {
+              $scope.selectedTab = message.tabIndex;
+            }
+
             $scope.$apply();
           };
 
